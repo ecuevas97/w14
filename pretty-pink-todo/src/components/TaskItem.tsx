@@ -10,7 +10,7 @@ export function TaskItem({ title, done }: TaskProps) {
     <div className={`task-card ${done ? "done" : ""}`}> 
       {/* Conditionally adds the "done" class if the task is complete */}
       <span>
-        {done ? "✅" : "⬜"} {title} // Shows a checkmark if done, box if not, and the task title
+        {done ? "✅" : "⬜"} {title} {/*  Shows a checkmark if done, box if not, and the task title*/}
       </span>
     </div>
   );

@@ -1,31 +1,37 @@
 import { useState } from 'react';
-import { testData } from '../data';         // Static test data
-import { TaskItem } from './TaskItem';      // Component to render each individual task
+import { testData } from '../data';
+import { TaskItem } from './TaskItem';
 
 export function TaskList() {
-  // State to store the current list of tasks
+  // State for tasks and new task input
   const [tasks, setTasks] = useState(testData);
-
-  // State to track what the user types in the input box
   const [newTask, setNewTask] = useState('');
 
-  // Function to add a new task to the list
+  // Handle adding a new task
   const handleAddTask = () => {
     if (newTask.trim() === '') return;
 
     const newTaskObject = {
-      id: Date.now(),          // simple unique id
+      id: Date.now(),
       title: newTask,
       done: false,
     };
 
-    setTasks([...tasks, newTaskObject]);  // Add the new task
-    setNewTask('');                       // Clear input
+    setTasks([...tasks, newTaskObject]);
+    setNewTask('');
+  };
+
+  // Handle toggling a task's "done" status
+  const handleToggleDone = (id: number) => {
+    const updatedTasks = tasks.map(task =>
+      task.id === id ? { ...task, done: !task.done } : task
+    );
+    setTasks(updatedTasks);
   };
 
   return (
     <div className="task-list">
-      {/* Input field and Add button */}
+      {/* Add task input form */}
       <div className="add-task-container">
         <input
           type="text"
@@ -39,12 +45,12 @@ export function TaskList() {
         </button>
       </div>
 
-      {/* Display tasks */}
-      {tasks.map(task => (
+      {/* Display the list of tasks */}
+      {tasks.map((task) => (
         <TaskItem
           key={task.id}
-          title={task.title}
-          done={task.done}
+          task={task}
+          onToggle={handleToggleDone}
         />
       ))}
     </div>

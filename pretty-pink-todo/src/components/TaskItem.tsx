@@ -1,17 +1,23 @@
-// Define the props expected by this component
-type TaskProps = {
-  title: string; // The task name or description
-  done: boolean; // Whether the task is marked as completed
+// Define the shape of a single task using TypeScript
+type Task = {
+  id: number;
+  title: string;
+  done: boolean;
 };
 
-// Component to display an individual task
-export function TaskItem({ title, done }: TaskProps) {
+// Define the props this component receives: a task object and a function to toggle its "done" status
+type Props = {
+  task: Task;
+  onToggle: (id: number) => void;
+};
+
+// TaskItem component renders a single to-do item
+export function TaskItem({ task, onToggle }: Props) {
   return (
-    <div className={`task-card ${done ? "done" : ""}`}> 
-      {/* Conditionally adds the "done" class if the task is complete */}
-      <span>
-        {done ? "✅" : "⬜"} {title} {/*  Shows a checkmark if done, box if not, and the task title*/}
-      </span>
+    // The entire task item is clickable to toggle completion
+    <div className="task-item" onClick={() => onToggle(task.id)}>
+      {/* Show a checkmark if done, or an empty box if not, followed by the task title */}
+      {task.done ? '✅' : '⬜'} {task.title}
     </div>
   );
 }

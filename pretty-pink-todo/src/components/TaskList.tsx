@@ -29,6 +29,12 @@ export function TaskList() {
     setTasks(updatedTasks);
   };
 
+  // ✅ Handle deleting a task
+  const handleDeleteTask = (id: number) => {
+    const filteredTasks = tasks.filter(task => task.id !== id);
+    setTasks(filteredTasks);
+  };
+
   return (
     <div className="task-list">
       {/* Add task input form */}
@@ -51,23 +57,9 @@ export function TaskList() {
           key={task.id}
           task={task}
           onToggle={handleToggleDone}
+          onDelete={handleDeleteTask}
         />
       ))}
     </div>
   );
 }
-// Function to delete a task by filtering it out of the list
-const handleDeleteTask = (id: number) => {
-  const filteredTasks = tasks.filter(task => task.id !== id);
-  setTasks(filteredTasks); // Updates the state with the filtered list
-};
-
-// Render each task using TaskItem and pass in all required props
-{tasks.map((task) => (
-  <TaskItem
-    key={task.id}                     // Unique key for React's rendering
-    task={task}                       // Pass the task object
-    onToggle={handleToggleDone}       // Pass the function to toggle done
-    onDelete={handleDeleteTask}       // Pass the function to delete
-  />
-))}

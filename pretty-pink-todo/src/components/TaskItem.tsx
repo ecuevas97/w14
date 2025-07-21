@@ -28,4 +28,3 @@ export function TaskItem({ task, onToggle, onDelete }: Props) {
     </div>
   );
 }
-

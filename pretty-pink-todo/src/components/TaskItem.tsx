@@ -1,23 +1,31 @@
-// Define the shape of a single task using TypeScript
+// Define the shape of a task
 type Task = {
   id: number;
   title: string;
   done: boolean;
 };
 
-// Define the props this component receives: a task object and a function to toggle its "done" status
+// Define what props this component needs
 type Props = {
-  task: Task;
-  onToggle: (id: number) => void;
+  task: Task;                      // The task object itself
+  onToggle: (id: number) => void;  // Function to toggle done/undone
+  onDelete: (id: number) => void;  // Function to delete the task
 };
 
-// TaskItem component renders a single to-do item
-export function TaskItem({ task, onToggle }: Props) {
+// This component renders a single task item
+export function TaskItem({ task, onToggle, onDelete }: Props) {
   return (
-    // The entire task item is clickable to toggle completion
-    <div className="task-item" onClick={() => onToggle(task.id)}>
-      {/* Show a checkmark if done, or an empty box if not, followed by the task title */}
-      {task.done ? '✅' : '⬜'} {task.title}
+    <div className="task-item">
+      {/* When you click this text, it toggles the task's done status */}
+      <span onClick={() => onToggle(task.id)}>
+        {task.done ? '✅' : '⬜'} {task.title}
+      </span>
+
+      {/* Delete button to remove task from the list */}
+      <button onClick={() => onDelete(task.id)} className="delete-button">
+        ✖
+      </button>
     </div>
   );
 }
+

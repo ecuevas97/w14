@@ -1,3 +1,9 @@
+// Import useState
+import { useState } from "react";
+// Import testData
+import { testData } from "./data.ts";
+
+
 // Import components and styles
 import { Header } from "./components/Header";       // Title/header component
 import { TaskList } from "./components/TaskList";   // Component that displays the list of tasks

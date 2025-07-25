@@ -28,19 +28,7 @@ export default function TaskList({ tasks, onToggle, onDelete, onAdd }: Props) {
 
   return (
     <div className="task-list">
-      {/* Input to Add Task */}
-      <div className="add-task-container">
-        <input
-          type="text"
-          value={newTask}
-          onChange={(e) => setNewTask(e.target.value)}
-          placeholder="Add a new task..."
-          className="task-input"
-        />
-        <button onClick={handleSubmit} className="add-task-button">
-          Add
-        </button>
-      </div>
+     
 
       {/* Task List */}
       <ul>

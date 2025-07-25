@@ -105,3 +105,50 @@ header {
 .delete-button:hover {
   color: red;
 }
+
+/* style the input button */
+.add-task-container {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+  justify-content: center;
+  align-items: center;
+}
+
+.task-input {
+  padding: 10px 14px;
+  border: 2px solid #f8b5cd;
+  border-radius: 20px;
+  background-color: #fff0f5;
+  color: #444;
+  font-size: 1rem;
+  width: 250px;
+  transition: all 0.3s ease;
+}
+
+.task-input:focus {
+  outline: none;
+  border-color: #ff80ab;
+  background-color: #ffe3ee;
+  box-shadow: 0 0 5px #ffb6c1;
+}
+
+.add-task-button {
+  padding: 10px 18px;
+  background-color: #ff80ab;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-task-button:hover {
+  background-color: #ff5f98;
+}
+
+.add-task-button:disabled {
+  background-color: #ffc1d6;
+  cursor: not-allowed;
+}

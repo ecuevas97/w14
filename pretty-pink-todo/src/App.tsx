@@ -14,14 +14,14 @@ import "./App.css";
 type Task = {
   id: number;
   title: string;
+  details: string;  // ✅ Added details to match new form
   done: boolean;
 };
 
-
 function App() {
-  const [tasks, setTasks] = useState<Task[]>(testData); // 🔧 State is now typed
+  const [tasks, setTasks] = useState<Task[]>(testData); // ✅ Uses test data as initial state
 
-  // Handle toggling a task's "done" status
+  // Toggle task completion
   const handleToggleDone = (id: number) => {
     const updatedTasks = tasks.map(task =>
       task.id === id ? { ...task, done: !task.done } : task
@@ -29,76 +29,72 @@ function App() {
     setTasks(updatedTasks);
   };
 
-  // Handle deleting a task
+  //  Delete a task
   const handleDeleteTask = (id: number) => {
     const filteredTasks = tasks.filter(task => task.id !== id);
     setTasks(filteredTasks);
   };
 
-  // Handle adding a new task
-  const handleAddTask = (title: string) => {
-    const newTask = {
+  //  Add a new task using title + details
+  const handleAddTask = (title: string, details: string) => {
+    const newTask: Task = {
       id: Date.now(),
       title,
+      details,
       done: false,
     };
     setTasks([...tasks, newTask]);
   };
 
-  // newTask and setNewTask function
-  const [newTask, setNewTask] = useState("");
+  //  Form state
+  const [newTask, setNewTask] = useState("");         // Title input
+  const [taskDetails, setTaskDetails] = useState(""); // Details input
 
-  //a second input for task description
-  const [taskDetails, setTaskDetails] = useState("");
+  return (
+    <div className="app-container">
+      <Header />
 
+      {/* Create form with 2 inputs */}
+      <div className="add-task-container">
+        <input
+          type="text"
+          value={newTask}
+          onChange={(e) => setNewTask(e.target.value)}
+          placeholder="Add a new task..."
+          className="task-input"
+        />
 
+        <input
+          type="text"
+          value={taskDetails}
+          onChange={(e) => setTaskDetails(e.target.value)}
+          placeholder="Add task details..."
+          className="task-input"
+        />
 
+        <button
+          onClick={() => {
+            if (newTask.trim() !== "") {
+              handleAddTask(newTask, taskDetails);  // ✅ Now passing both values!
+              setNewTask("");                        // ✅ Reset form
+              setTaskDetails("");
+            }
+          }}
+          className="add-task-button"
+        >
+          Add
+        </button>
+      </div>
 
- return (
-  <div className="app-container">
-    <Header />
-
-    {/*  Input + Add button */}
-    <div className="add-task-container">
-      <input
-        type="text"
-        value={newTask}
-        onChange={(e) => setNewTask(e.target.value)}
-        placeholder="Add a new task..."
-        className="task-input"
+      {/*  Render list with props */}
+      <TaskList
+        tasks={tasks}
+        onToggle={handleToggleDone}
+        onDelete={handleDeleteTask}
+        onAdd={handleAddTask}
       />
-      
-     <input
-        type="text"
-        value={taskDetails}
-        onChange={(e) => setTaskDetails(e.target.value)}
-        placeholder="Add task details..."
-        className="task-input"
-      />
-
-      <button
-        onClick={() => {
-          if (newTask.trim() !== "") {
-            handleAddTask(newTask);
-            setNewTask("");
-          }
-        }}
-        className="add-task-button"
-      >
-        Add
-      </button>
     </div>
-
-    {/* Task list */}
-    <TaskList
-      tasks={tasks}
-      onToggle={handleToggleDone}
-      onDelete={handleDeleteTask}
-      onAdd={handleAddTask}
-    />
-  </div>
-);
-
+  );
 }
 
 export default App;

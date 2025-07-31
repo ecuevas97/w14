@@ -45,8 +45,13 @@ function App() {
     setTasks([...tasks, newTask]);
   };
 
-  // neTask and setNewTask function
+  // newTask and setNewTask function
   const [newTask, setNewTask] = useState("");
+
+  //a second input for task description
+  const [taskDetails, setTaskDetails] = useState("");
+
+
 
 
  return (
@@ -62,6 +67,15 @@ function App() {
         placeholder="Add a new task..."
         className="task-input"
       />
+      
+     <input
+        type="text"
+        value={taskDetails}
+        onChange={(e) => setTaskDetails(e.target.value)}
+        placeholder="Add task details..."
+        className="task-input"
+      />
+
       <button
         onClick={() => {
           if (newTask.trim() !== "") {

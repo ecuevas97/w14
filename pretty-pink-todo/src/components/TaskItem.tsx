@@ -2,6 +2,7 @@
 type Task = {
   id: number;
   title: string;
+  details: string;
   done: boolean;
 };
 
@@ -16,12 +17,15 @@ type Props = {
 export function TaskItem({ task, onToggle, onDelete }: Props) {
   return (
     <div className="task-item">
-      {/* When you click this text, it toggles the task's done status */}
-      <span onClick={() => onToggle(task.id)}>
+      {/* Clicking toggles done/undone */}
+      <span onClick={() => onToggle(task.id)} className="task-title">
         {task.done ? '✅' : '⬜'} {task.title}
       </span>
 
-      {/* Delete button to remove task from the list */}
+      {/* Render the task details below the title */}
+      <p className="task-details">{task.details}</p>
+
+      {/* Delete button */}
       <button onClick={() => onDelete(task.id)} className="delete-button">
         ✖
       </button>
